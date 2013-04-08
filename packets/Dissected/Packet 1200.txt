@@ -1,0 +1,46 @@
+B1 : world count
+
+{
+	B42 : world data size
+	B3 : infoblock count
+	
+	{ //Offsets for the blocks
+		B0 : block id
+		I16 : block start
+		
+		B1 : block id
+		I24 : block start
+		
+		B2 : block id
+		I38 : block start
+	}
+	
+	{ //Actual blocks
+	
+		{ //Block id 0
+			B0 : id
+			I1606 : world id
+			
+			B2 : str size
+			B[2] : "W1" (seems to never change)
+		}
+		
+		{ //Block id 1
+			B1 : id
+			
+			B9 : world name len
+			B[9] : "Remington" (world name)
+			B2 : world region len
+			B[2] : "en" (world region)
+		}
+		
+		{ //Block id 2
+			B2 : id
+			
+			B1 : online
+			B0 : full
+			B0 : population
+		}
+		
+	}
+}

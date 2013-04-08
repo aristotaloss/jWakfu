@@ -22,7 +22,7 @@ public class Packet7Version implements IncomingPacket {
 		String buildVersion = DataUtils.readString(buffer);
 		
 		logger.info("Received version packet: {proto="+protocolVersion+", buildVersion="+buildVersion+"}");
-		session.getChannel().write(new Packet1032RSAKey().encode());
+		session.write(new Packet1032RSAKey());
 	}
 
 }

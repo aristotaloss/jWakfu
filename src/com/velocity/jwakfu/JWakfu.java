@@ -6,6 +6,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 import org.slf4j.Logger;
 
+import com.velocity.jwakfu.model.WorldInfo;
 import com.velocity.jwakfu.net.GameServerInitializer;
 import com.velocity.jwakfu.util.LoggingUtil;
 
@@ -14,7 +15,10 @@ public class JWakfu {
 	private static final Logger logger = LoggingUtil.log();
 
 	public JWakfu() {
+		logger.info("Starting jWakfu...");
+		
 		try {
+			WorldInfo.loadWorlds("data/worlds.xml");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -22,7 +26,6 @@ public class JWakfu {
 
 	public void run() throws Exception {
 		long start = System.currentTimeMillis();
-		logger.info("Starting jWakfu...");
 		ServerBootstrap b = new ServerBootstrap();
 		try {
 			b.group(new NioEventLoopGroup(), new NioEventLoopGroup()).channel(NioServerSocketChannel.class).localAddress(443).childHandler(new GameServerInitializer());

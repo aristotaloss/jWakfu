@@ -37,9 +37,9 @@ public class Packet1025Login implements IncomingPacket {
 		logger.info("Login packet: " + username + ", " + password);
 
 		if (username.equals("velocity") && password.endsWith("cheese"))
-			session.getChannel().write(new Packet1024LoginResponse("superkiller10107", 33965798L, 0L, false));
+			session.write(new Packet1024LoginResponse("superkiller10107", 33965798L, 0L, false));
 		else
-			session.getChannel().write(new Packet1024LoginResponse(LoginResponseCode.ACCOUNT_UNDER_MODERATION).encode());
+			session.write(new Packet1024LoginResponse(LoginResponseCode.INVALID_LOGIN));
 	}
 
 }

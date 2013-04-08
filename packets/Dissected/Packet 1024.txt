@@ -1,0 +1,40 @@
+B0 : response code
+S50 : size
+B1 : amount of blocks
+
+{
+	B0 : block id
+	I6 : block start
+	
+	{ -> Block id 0
+		skip 1b
+		L33965798 : char id?
+		B0 : ?
+		L0 : expiration date
+		I0 : rights (rank) > 0 = admin
+		B16: char name len
+		B[16] : char name (length of defined byte above)
+		B2 : string len (seems to be always '??') unused
+		B[2] : string (always '??'?) unused
+		
+		S0 : amount
+		{
+			//byte
+			//long
+		}
+		
+		
+	}
+}
+
+ 	  var1.putLong(Class7864.a(this.hwp));
+      var1.put((byte)(Class7864.b(this.hwp)?1:0));
+      var1.putLong(Class7864.c(this.hwp));
+      var1.putInt(Class7864.d(this.hwp));
+      byte[] var2 = Class2826.oO(Class7864.e(this.hwp));
+      var1.put((byte)var2.length);
+      var1.put(var2);
+      byte[] var3 = Class2826.oO(Class7864.f(this.hwp));
+      var1.put((byte)var3.length);
+      var1.put(var3);
+      Class7864.g(this.hwp).a(var1);

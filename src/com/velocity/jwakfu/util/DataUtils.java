@@ -11,6 +11,11 @@ public class DataUtils {
 		return new String(str);
 	}
 	
+	public static final void writeString(ByteBuf buf, String s) {
+		buf.writeByte(s.length());
+		buf.writeBytes(s.getBytes());
+	}
+	
 	public static final ByteBuf bufferFromBytes(byte[] data) {
 		ByteBuf buffer = Unpooled.buffer();
 		buffer.writeBytes(data);
@@ -19,5 +24,5 @@ public class DataUtils {
 		buffer.resetReaderIndex();
 		return buffer;
 	}
-
+	
 }

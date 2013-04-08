@@ -1,0 +1,5 @@
+[Identified Classes]
+
+Class2956 -> Pet
+Class11505 -> PreferenceStore
+Class11185 -> CharacterGlobalData

@@ -1,2 +1,4 @@
 [Known Client -> Server opcodes]
 
+    7: Send build version (request login server) 
+ 1025: Send login information

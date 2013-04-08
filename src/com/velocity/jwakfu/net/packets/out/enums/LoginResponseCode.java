@@ -2,6 +2,7 @@ package com.velocity.jwakfu.net.packets.out.enums;
 
 public enum LoginResponseCode {
 	
+	CORRECT_LOGIN(0),
 	INVALID_LOGIN(2),
 	ALREADY_CONNECTED(3),
 	SAVE_IN_PROGRESS(4),

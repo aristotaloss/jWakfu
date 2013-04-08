@@ -8,7 +8,7 @@ import io.netty.buffer.Unpooled;
 import com.velocity.jwakfu.crypto.RSACertificateManager;
 import com.velocity.jwakfu.net.packets.IncomingPacket;
 import com.velocity.jwakfu.net.packets.out.Packet1032RSAKey;
-import com.velocity.jwakfu.net.packets.out.Packet5LoginResponse;
+import com.velocity.jwakfu.net.packets.out.Packet1024LoginResponse;
 import com.velocity.jwakfu.net.packets.out.enums.LoginResponseCode;
 import com.velocity.jwakfu.session.ClientSession;
 import com.velocity.jwakfu.util.DataUtils;
@@ -36,7 +36,7 @@ public class Packet1025Login implements IncomingPacket {
 		}
 		
 		logger.info("Login packet: " + username + ", " + password);
-		session.getChannel().write(new Packet5LoginResponse(LoginResponseCode.ACCOUNT_UNDER_MODERATION).encode());
+		session.getChannel().write(new Packet1024LoginResponse(LoginResponseCode.ACCOUNT_UNDER_MODERATION).encode());
 	}
 
 }

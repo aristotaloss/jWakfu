@@ -13,6 +13,7 @@ import com.velocity.jwakfu.net.GameServerHandler;
 import com.velocity.jwakfu.net.packets.IncomingPacket;
 import com.velocity.jwakfu.net.packets.in.Packet1025Login;
 import com.velocity.jwakfu.net.packets.in.Packet1201ListCharacters;
+import com.velocity.jwakfu.net.packets.in.Packet2051DeleteCharacter;
 import com.velocity.jwakfu.net.packets.in.Packet2053CreateCharacter;
 import com.velocity.jwakfu.net.packets.in.Packet2055LeaveCharacterScreen;
 import com.velocity.jwakfu.net.packets.in.Packet7Version;
@@ -51,6 +52,7 @@ public class PacketDecoder extends MessageToMessageDecoder<ByteBuf, ByteBuf> {
 		INCOMING_PACKET_MAP.put(7, new Packet7Version());
 		INCOMING_PACKET_MAP.put(1025, new Packet1025Login());
 		INCOMING_PACKET_MAP.put(1201, new Packet1201ListCharacters());
+		INCOMING_PACKET_MAP.put(2051, new Packet2051DeleteCharacter());
 		INCOMING_PACKET_MAP.put(2053, new Packet2053CreateCharacter());
 		INCOMING_PACKET_MAP.put(2055, new Packet2055LeaveCharacterScreen());
 	}

@@ -2,12 +2,16 @@ package com.velocity.jwakfu.net.packets.in;
 
 import io.netty.buffer.ByteBuf;
 
+import java.io.File;
+
 import org.slf4j.Logger;
 
 import com.velocity.jwakfu.crypto.RSACertificateManager;
+import com.velocity.jwakfu.model.Player;
 import com.velocity.jwakfu.net.packets.IncomingPacket;
 import com.velocity.jwakfu.net.packets.out.Packet1024LoginResponse;
 import com.velocity.jwakfu.net.packets.out.Packet1032RSAKey;
+import com.velocity.jwakfu.net.packets.out.Packet1200ListWorlds;
 import com.velocity.jwakfu.net.packets.out.enums.LoginResponseCode;
 import com.velocity.jwakfu.session.ClientSession;
 import com.velocity.jwakfu.util.DataUtils;
@@ -35,11 +39,23 @@ public class Packet1025Login implements IncomingPacket {
 		}
 
 		logger.info("Login packet: " + username + ", " + password);
-
-		if (username.equals("velocity") && password.endsWith("cheese"))
-			session.write(new Packet1024LoginResponse("superkiller10107", 33965798L, 0L, false));
-		else
+		
+		if (!userExists(username)) {
 			session.write(new Packet1024LoginResponse(LoginResponseCode.INVALID_LOGIN));
+		} else {
+			Player player = Player.load(username);
+			if (player.getPassword().equals(password)) {
+				session.write(new Packet1024LoginResponse(player.getName(), 33965798L, 0L, false)).write(new Packet1200ListWorlds());
+				session.setPlayer(player);
+			} else {
+				session.write(new Packet1024LoginResponse(LoginResponseCode.INVALID_LOGIN));
+			}
+			player.save();
+		}
+	}
+	
+	private boolean userExists(String user) {
+		return new File("data/chars/"+user+".xml").exists();
 	}
 
 }

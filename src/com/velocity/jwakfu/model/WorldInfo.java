@@ -33,4 +33,21 @@ public class WorldInfo {
 		return name;
 	}
 	
+	public static WorldInfo getWorld(int id) {
+		for (WorldInfo wi : worlds) {
+			if (wi.getId() == id)
+				return wi;
+		}
+		
+		return null;
+	}
+	
+	public static int getWorldCount() {
+		return worlds.size();
+	}
+	
+	public static ArrayList<WorldInfo> getList() {
+		return worlds;
+	}
+	
 }

@@ -1,0 +1,55 @@
+[0: ID]
+Long: character id
+
+[1: Identity]
+Byte: type
+Long: ownerId
+
+[2: Name]
+2Byte-String: name
+
+[3: Breed]
+Short: breedId
+
+[5: Appearance]
+Byte: sex
+Byte: skinColorIndex
+Byte: hairColorIndex
+Byte: pupilColorIndex
+Byte: skinColorFactor
+Byte: hairColorFactor
+Byte: clothIndex
+Byte: faceIndex
+Short: currentTitle
+
+[43: Equipment Appearance]
+Byte: amount
+each item: {Byte: position; Int referenceId}
+
+[10: Creation Data]
+Byte: hasCreationData
+if {hasCreationData}
+	Byte: isNewCharacter
+	
+[9: XP]
+Long: xp
+Class bonusPointCharacteristics : {
+	Short freePoints
+	Short xpBonusPointCount;
+	
+	Class xpBonusPoint : {
+		Byte characId
+		Short nbPoint
+	}
+	
+	Short characteristicBonusPointCount;
+	Class CharBonusPoint : {
+		Byte characId
+		Short value
+	}
+	
+	Int gauge;
+}
+
+[36: Nation ID]
+Int nationId

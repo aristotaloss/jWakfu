@@ -2,6 +2,9 @@
 
  1032: Set RSA encryption key
  1024: Login response code
+ 1202: Set current world
+ 2063: Send local current time ms
+ 2048: List characters (char list screen)
 20059: Guild Error Message
 15982: Change pet Item Id
 15980: Pet equipment change

@@ -11,6 +11,8 @@ import com.velocity.jwakfu.net.GameServerInitializer;
 import com.velocity.jwakfu.util.LoggingUtil;
 
 public class JWakfu {
+	
+	//IDENTITY NAME BREED APPEARANCE CREATION_DATA -> char creation
 
 	private static final Logger logger = LoggingUtil.log();
 

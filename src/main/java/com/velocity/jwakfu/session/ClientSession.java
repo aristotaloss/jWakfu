@@ -28,11 +28,11 @@ public class ClientSession {
 	
 	public ClientSession write(Object data) {
 		if (data instanceof OutgoingPacket) {
-			channel.write(((OutgoingPacket) data).encode());
+			channel.writeAndFlush(((OutgoingPacket) data).encode());
 			return this;
 		}
 		
-		channel.write(data);
+		channel.writeAndFlush(data);
 		return this;
 	}
 	

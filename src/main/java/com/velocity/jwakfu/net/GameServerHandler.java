@@ -3,7 +3,7 @@ package com.velocity.jwakfu.net;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundMessageHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.AttributeKey;
 
 import org.slf4j.Logger;
@@ -12,10 +12,10 @@ import com.velocity.jwakfu.session.ClientSession;
 import com.velocity.jwakfu.util.LoggingUtil;
 
 @Sharable
-public class GameServerHandler extends ChannelInboundMessageHandlerAdapter<ByteBuf> {
+public class GameServerHandler extends SimpleChannelInboundHandler<ByteBuf> {
 
 	private static final Logger logger = LoggingUtil.log();
-	public static final AttributeKey<ClientSession> CLIENTSESS_ATTR = new AttributeKey<>("ClientSession");
+	public static final AttributeKey<ClientSession> CLIENTSESS_ATTR = AttributeKey.newInstance("ClientSession");
 	
 	public GameServerHandler() {
 		super(ByteBuf.class);
@@ -43,7 +43,7 @@ public class GameServerHandler extends ChannelInboundMessageHandlerAdapter<ByteB
 	}
 
 	@Override
-	public void messageReceived(ChannelHandlerContext ctx, ByteBuf packet) throws Exception {
+	public void channelRead0(ChannelHandlerContext ctx, ByteBuf packet) throws Exception {
 	}
 
 	@Override

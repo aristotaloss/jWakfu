@@ -1,9 +1,9 @@
 package com.velocity.jwakfu;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.socket.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.slf4j.Logger;
 
 import com.velocity.jwakfu.model.WorldInfo;
@@ -29,17 +29,14 @@ public class JWakfu {
 	public void run() throws Exception {
 		long start = System.currentTimeMillis();
 		ServerBootstrap b = new ServerBootstrap();
+		b.group(new NioEventLoopGroup(), new NioEventLoopGroup()).channel(NioServerSocketChannel.class).localAddress(5558).childHandler(new GameServerInitializer());
+
 		try {
-			b.group(new NioEventLoopGroup(), new NioEventLoopGroup()).channel(NioServerSocketChannel.class).localAddress(5558).childHandler(new GameServerInitializer());
-			try {
-				logger.info("Listening on port 5558.");
-				logger.info("Server took " + (System.currentTimeMillis() - start) + " milliseconds to start up.");
-				b.bind().awaitUninterruptibly().channel().closeFuture().awaitUninterruptibly();
-			} catch (Exception e) {
-				logger.error("Could not listen to port 443.", e);
-			}
-		} finally {
-			b.shutdown();
+			logger.info("Listening on port 5558.");
+			logger.info("Server took " + (System.currentTimeMillis() - start) + " milliseconds to start up.");
+			b.bind().awaitUninterruptibly().channel().closeFuture().awaitUninterruptibly();
+		} catch (Exception e) {
+			logger.error("Could not listen to port 443.", e);
 		}
 	}
 

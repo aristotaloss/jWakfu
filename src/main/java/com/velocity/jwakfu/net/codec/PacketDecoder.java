@@ -7,6 +7,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.slf4j.Logger;
 
@@ -16,7 +17,7 @@ import com.velocity.jwakfu.session.ClientSession;
 import com.velocity.jwakfu.util.LoggingUtil;
 
 @Sharable
-public class PacketDecoder extends MessageToMessageDecoder<ByteBuf, ByteBuf> {
+public class PacketDecoder extends MessageToMessageDecoder<ByteBuf> {
 
 	private static final Logger logger = LoggingUtil.log();
 	private static final HashMap<Integer, IncomingPacket> INCOMING_PACKET_MAP = new HashMap<Integer, IncomingPacket>();
@@ -26,7 +27,7 @@ public class PacketDecoder extends MessageToMessageDecoder<ByteBuf, ByteBuf> {
 	}
 
 	@Override
-	public ByteBuf decode(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
+	public void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
 		ClientSession sess = ctx.channel().attr(GameServerHandler.CLIENTSESS_ATTR).get();
 		if (sess != null && msg.readableBytes() > 0) {
 			int size = msg.readUnsignedShort();
@@ -40,8 +41,6 @@ public class PacketDecoder extends MessageToMessageDecoder<ByteBuf, ByteBuf> {
 				logger.warn("Unknown packet. Size: " + size + ", Type: " + type + ", Opcode: " + opcode);
 			}
 		}
-		
-		return msg;
 	}
 	
 	private static void initPacketList() {

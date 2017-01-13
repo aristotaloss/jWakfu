@@ -1,5 +1,6 @@
 package com.velocity.jwakfu.net.codec;
 
+import com.velocity.jwakfu.net.packets.in.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -11,12 +12,6 @@ import org.slf4j.Logger;
 
 import com.velocity.jwakfu.net.GameServerHandler;
 import com.velocity.jwakfu.net.packets.IncomingPacket;
-import com.velocity.jwakfu.net.packets.in.Packet1025Login;
-import com.velocity.jwakfu.net.packets.in.Packet1201ListCharacters;
-import com.velocity.jwakfu.net.packets.in.Packet2051DeleteCharacter;
-import com.velocity.jwakfu.net.packets.in.Packet2053CreateCharacter;
-import com.velocity.jwakfu.net.packets.in.Packet2055LeaveCharacterScreen;
-import com.velocity.jwakfu.net.packets.in.Packet7Version;
 import com.velocity.jwakfu.session.ClientSession;
 import com.velocity.jwakfu.util.LoggingUtil;
 
@@ -39,9 +34,10 @@ public class PacketDecoder extends MessageToMessageDecoder<ByteBuf, ByteBuf> {
 			int opcode = msg.readUnsignedShort();
 			
 			if (INCOMING_PACKET_MAP.containsKey(opcode)) {
+				logger.info("Incoming packet. Size: " + size + ", Type: " + type + ", Opcode: " + opcode);
 				INCOMING_PACKET_MAP.get(opcode).decode(sess, msg, size);
 			} else {
-				logger.info("Incoming packet. Size: " + size + ", Type: " + type + ", Opcode: " + opcode);
+				logger.warn("Unknown packet. Size: " + size + ", Type: " + type + ", Opcode: " + opcode);
 			}
 		}
 		
@@ -50,7 +46,10 @@ public class PacketDecoder extends MessageToMessageDecoder<ByteBuf, ByteBuf> {
 	
 	private static void initPacketList() {
 		INCOMING_PACKET_MAP.put(7, new Packet7Version());
-		INCOMING_PACKET_MAP.put(1025, new Packet1025Login());
+		INCOMING_PACKET_MAP.put(1211, new Packet1211RequestTicket());
+		INCOMING_PACKET_MAP.put(1213, new Packet1213RedeemTicket());
+		INCOMING_PACKET_MAP.put(1026, new Packet1025Login());
+		INCOMING_PACKET_MAP.put(1035, new Packet1035RefreshWorlds());
 		INCOMING_PACKET_MAP.put(1201, new Packet1201ListCharacters());
 		INCOMING_PACKET_MAP.put(2051, new Packet2051DeleteCharacter());
 		INCOMING_PACKET_MAP.put(2053, new Packet2053CreateCharacter());

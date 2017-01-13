@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import com.velocity.jwakfu.crypto.RSACertificateManager;
 import com.velocity.jwakfu.model.Player;
 import com.velocity.jwakfu.net.packets.IncomingPacket;
-import com.velocity.jwakfu.net.packets.out.Packet1024LoginResponse;
+import com.velocity.jwakfu.net.packets.out.Packet1027LoginResponse;
 import com.velocity.jwakfu.net.packets.out.Packet1032RSAKey;
 import com.velocity.jwakfu.net.packets.out.Packet1200ListWorlds;
 import com.velocity.jwakfu.net.packets.out.enums.LoginResponseCode;
@@ -23,7 +23,7 @@ public class Packet1025Login implements IncomingPacket {
 
 	@Override
 	public void decode(ClientSession session, ByteBuf buffer, int size) {
-		byte[] b = new byte[size - 5]; // - 5 is due to the fact that the size includes the type/opcode/size bytes.
+		byte[] b = new byte[buffer.readInt()];
 		buffer.readBytes(b);
 
 		byte[] decoded = RSACertificateManager.INSTANCE.decode(b);
@@ -41,14 +41,14 @@ public class Packet1025Login implements IncomingPacket {
 		logger.info("Login packet: " + username + ", " + password);
 		
 		if (!userExists(username)) {
-			session.write(new Packet1024LoginResponse(LoginResponseCode.INVALID_LOGIN));
+			session.write(new Packet1027LoginResponse(LoginResponseCode.INVALID_LOGIN));
 		} else {
 			Player player = Player.load(username);
 			if (player.getPassword().equals(password)) {
-				session.write(new Packet1024LoginResponse(player.getName(), 33965798L, 0L, false)).write(new Packet1200ListWorlds());
+				session.write(new Packet1027LoginResponse(player.getName(), 33965798L, 0L, false)).write(new Packet1200ListWorlds());
 				session.setPlayer(player);
 			} else {
-				session.write(new Packet1024LoginResponse(LoginResponseCode.INVALID_LOGIN));
+				session.write(new Packet1027LoginResponse(LoginResponseCode.INVALID_LOGIN));
 			}
 			player.save();
 		}

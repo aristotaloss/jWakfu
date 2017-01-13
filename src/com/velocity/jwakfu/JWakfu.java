@@ -30,9 +30,9 @@ public class JWakfu {
 		long start = System.currentTimeMillis();
 		ServerBootstrap b = new ServerBootstrap();
 		try {
-			b.group(new NioEventLoopGroup(), new NioEventLoopGroup()).channel(NioServerSocketChannel.class).localAddress(443).childHandler(new GameServerInitializer());
+			b.group(new NioEventLoopGroup(), new NioEventLoopGroup()).channel(NioServerSocketChannel.class).localAddress(5558).childHandler(new GameServerInitializer());
 			try {
-				logger.info("Listening on port 443.");
+				logger.info("Listening on port 5558.");
 				logger.info("Server took " + (System.currentTimeMillis() - start) + " milliseconds to start up.");
 				b.bind().awaitUninterruptibly().channel().closeFuture().awaitUninterruptibly();
 			} catch (Exception e) {

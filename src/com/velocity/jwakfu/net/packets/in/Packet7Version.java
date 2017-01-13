@@ -1,5 +1,6 @@
 package com.velocity.jwakfu.net.packets.in;
 
+import com.velocity.jwakfu.net.packets.out.Packet8VersionAck;
 import io.netty.buffer.ByteBuf;
 
 import org.slf4j.Logger;
@@ -17,11 +18,13 @@ public class Packet7Version implements IncomingPacket {
 
 	@Override
 	public void decode(ClientSession session, ByteBuf buffer, int size) {
-		buffer.readByte(); //Always 1
-		int protocolVersion = buffer.readShort();
+		int major = buffer.readUnsignedByte();
+		int minor = buffer.readUnsignedShort();
+		int patch = buffer.readUnsignedByte();
 		String buildVersion = DataUtils.readString(buffer);
 		
-		logger.info("Received version packet: {proto="+protocolVersion+", buildVersion="+buildVersion+"}");
+		logger.info("Received version packet: {build={}.{}.{} ({})}", new Object[] {major, minor, patch, buildVersion});
+		session.write(new Packet8VersionAck(true, major, minor, patch, buildVersion));
 		session.write(new Packet1032RSAKey());
 	}
 

@@ -68,6 +68,12 @@ public class OutPacket {
 		data.writeBytes(s.getBytes());
 		return this;
 	}
+
+	public OutPacket writeLargeString(String s) {
+		data.writeInt(s.length());
+		data.writeBytes(s.getBytes());
+		return this;
+	}
 	
 	public void markShort(int index) {
 		marks.put(index, data.writerIndex());

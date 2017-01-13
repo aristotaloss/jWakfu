@@ -6,7 +6,7 @@ import com.velocity.jwakfu.net.packets.OutgoingPacket;
 
 public class Packet1032RSAKey implements OutgoingPacket {
 	
-	private static final int PACKET_ID = 1032;
+	private static final int PACKET_ID = 1034;
 	public static final long RSA_VERIFICATION_LONG = 0x8000000000000000L;
 
 	@Override

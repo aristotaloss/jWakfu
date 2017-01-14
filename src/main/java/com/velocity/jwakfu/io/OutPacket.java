@@ -15,6 +15,8 @@ public class OutPacket {
 	private HashMap<Integer, Integer> marks = new HashMap<Integer, Integer>();
 	
 	public OutPacket(int packetId) {
+		this.packetId = packetId;
+
 		data = Unpooled.buffer();
 		data.writeShort(0); //Size placeholder
 		data.writeShort(packetId);
@@ -76,62 +78,62 @@ public class OutPacket {
 	}
 	
 	public void markShort(int index) {
-		marks.put(index, data.writerIndex());
 		writeShort(0);
+		marks.put(index, data.writerIndex());
 	}
 	
 	public void markByte(int index) {
-		marks.put(index, data.writerIndex());
 		writeByte(0);
+		marks.put(index, data.writerIndex());
 	}
 	
 	public void markInt(int index) {
-		marks.put(index, data.writerIndex());
 		writeInt(0);
+		marks.put(index, data.writerIndex());
 	}
 	
 	public void endMarkShort(int index) {
-		data.setShort(marks.get(index), data.writerIndex() - marks.get(index));
+		data.setShort(marks.get(index) - 2, data.writerIndex() - marks.get(index));
 	}
 	
 	public void endMarkShort(int index, int add) {
-		data.setShort(marks.get(index), data.writerIndex() - marks.get(index) + add);
+		data.setShort(marks.get(index) - 2, data.writerIndex() - marks.get(index) + add);
 	}
 	
 	public void endMarkByte(int index) {
-		data.setByte(marks.get(index), data.writerIndex() - marks.get(index));
+		data.setByte(marks.get(index) - 1, data.writerIndex() - marks.get(index));
 	}
 	
 	public void endMarkByte(int index, int add) {
-		data.setByte(marks.get(index), data.writerIndex() - marks.get(index) + add);
+		data.setByte(marks.get(index) - 1, data.writerIndex() - marks.get(index) + add);
 	}
 	
 	public void endMarkInt(int index) {
-		data.setInt(marks.get(index), data.writerIndex() - marks.get(index));
+		data.setInt(marks.get(index) - 4, data.writerIndex() - marks.get(index));
 	}
 	
 	public void endMarkShortAbsolute(int index) {
-		data.setShort(marks.get(index), data.writerIndex());
+		data.setShort(marks.get(index) - 2, data.writerIndex());
 	}
 	
 	public void endMarkByteAbsolute(int index) {
-		data.setByte(marks.get(index), data.writerIndex());
+		data.setByte(marks.get(index) - 1, data.writerIndex());
 	}
 	
 	public void endMarkIntAbsolute(int index) {
-		data.setInt(marks.get(index), data.writerIndex());
+		data.setInt(marks.get(index) - 4, data.writerIndex());
 	}
 	
 	public void endMarkShortAbsolute(int index, int add) {
-		data.setShort(marks.get(index), data.writerIndex() + add);
+		data.setShort(marks.get(index) - 2, data.writerIndex() + add);
 	}
 	
 	public void endMarkByteAbsolute(int index, int add) {
-		data.setByte(marks.get(index), data.writerIndex() + add);
+		data.setByte(marks.get(index) - 1, data.writerIndex() + add);
 	}
 	
 	public void endMarkIntAbsolute(int index, int add) {
-		data.setInt(marks.get(index), data.writerIndex() + add);
+		data.setInt(marks.get(index) - 4, data.writerIndex() + add);
 	}
 	
 	public void printBuffer() {

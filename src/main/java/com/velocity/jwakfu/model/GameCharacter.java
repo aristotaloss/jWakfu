@@ -64,6 +64,10 @@ public class GameCharacter {
 	public void writeName(OutPacket buffer) {
 		buffer.writeBigString(name);
 	}
+
+	public void writeActiveEquipmentSheet(OutPacket buffer) {
+		buffer.writeByte(0); // index
+	}
 	
 	public void writeBreed(OutPacket buffer) {
 		buffer.writeShort(breed.ordinal() + 1);
@@ -85,16 +89,20 @@ public class GameCharacter {
 		buffer.writeByte(1); //amt of equips
 		
 		buffer.writeByte(22); //slot
-		buffer.writeInt(12237);
+		buffer.writeInt(12237); // reference id
+		buffer.writeInt(0); // skin..? can be 0
 	}
 	
 	public void writeCreationData(OutPacket buffer) {
+		buffer.writeByte(0); //no creation data
+		buffer.writeByte(0); //no creation data
+		buffer.writeShort(0); //no creation data
 		buffer.writeByte(0); //no creation data
 	}
 	
 	public void writeXP(OutPacket buffer) {
 		buffer.writeLong(xp*23);
-		buffer.writeShort(0); //free points
+		/*buffer.writeShort(0); //free points
 		
 		int[] points = new int[] {40, 37, 39, 36, 41, 38};
 		buffer.writeShort(6);
@@ -109,11 +117,23 @@ public class GameCharacter {
 			buffer.writeShort(0);
 		}
 		
-		buffer.writeInt(0); //gauge
+		buffer.writeInt(0); //gauge*/
 	}
 	
 	public void writeNation(OutPacket buffer) {
 		buffer.writeInt(nation.getId());
+	}
+
+	public void writeGuildId(OutPacket buffer) {
+		buffer.writeLong(0);
+	}
+
+	public void writeGuildBlazon(OutPacket buffer) {
+		buffer.writeLong(0);
+	}
+
+	public void writeInstanceId(OutPacket buffer) {
+		buffer.writeShort(0);
 	}
 
 }

@@ -17,6 +17,13 @@ public class DataUtils {
 		buf.readBytes(str);
 		return new String(str);
 	}
+
+	public static final String readLargeString(ByteBuf buf) {
+		int len = buf.readInt();
+		byte[] str = new byte[len];
+		buf.readBytes(str);
+		return new String(str);
+	}
 	
 	public static final void writeString(ByteBuf buf, String s) {
 		buf.writeByte(s.length());

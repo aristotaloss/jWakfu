@@ -2,9 +2,6 @@ package com.velocity.jwakfu.net.packets.in;
 
 import com.velocity.jwakfu.net.packets.IncomingPacket;
 import com.velocity.jwakfu.net.packets.out.Packet1200ListWorlds;
-import com.velocity.jwakfu.net.packets.out.Packet1202CharListResponse;
-import com.velocity.jwakfu.net.packets.out.Packet2048SendCharacters;
-import com.velocity.jwakfu.net.packets.out.Packet2063ServerTime;
 import com.velocity.jwakfu.session.ClientSession;
 import com.velocity.jwakfu.util.LoggingUtil;
 import io.netty.buffer.ByteBuf;

@@ -5,20 +5,24 @@ import com.velocity.jwakfu.model.GameCharacter;
 import com.velocity.jwakfu.model.Player;
 import com.velocity.jwakfu.net.packets.OutgoingPacket;
 
-public class Packet2048SendCharacters implements OutgoingPacket {
+import java.math.BigInteger;
+
+public class Packet2077SendCompanions implements OutgoingPacket {
 
 	private Player player;
 
-	public Packet2048SendCharacters(Player player) {
+	public Packet2077SendCompanions(Player player) {
 		this.player = player;
 	}
 
 	@Override
 	public OutPacket encode() {
-		OutPacket buffer = new OutPacket(2048);
-		buffer.writeByte(player.getCharacters().size()); //amt of chars
+		OutPacket buffer = new OutPacket(2077);
 
-		for (GameCharacter character : player.getCharacters()) {
+		buffer.writeBytes(new BigInteger("01000000000014af3a0b0d0000000006c24afa000000000000000000000000000000000000000000009959d20000000814880000000000081487000000000005080000", 16).toByteArray());
+		//buffer.writeByte(0/*player.getCharacters().size()*/); //amt of chars
+
+		/*for (GameCharacter character : player.getCharacters()) {
 			buffer.markShort(0);
 			buffer.writeByte(4); //block type
 
@@ -32,8 +36,8 @@ public class Packet2048SendCharacters implements OutgoingPacket {
 			character.writeXP(buffer);
 			character.writeNation(buffer);
 
-			buffer.endMarkShort(0, -2);
-		}
+			buffer.endMarkShort(0);
+		}*/
 		return buffer;
 	}
 

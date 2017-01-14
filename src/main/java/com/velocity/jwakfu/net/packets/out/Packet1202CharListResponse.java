@@ -5,11 +5,9 @@ import com.velocity.jwakfu.net.packets.OutgoingPacket;
 
 public class Packet1202CharListResponse implements OutgoingPacket {
 
-	private int worldId;
 	private boolean success;
 
-	public Packet1202CharListResponse(int worldId, boolean success) {
-		this.worldId = worldId;
+	public Packet1202CharListResponse(boolean success) {
 		this.success = success;
 	}
 
@@ -17,7 +15,6 @@ public class Packet1202CharListResponse implements OutgoingPacket {
 	public OutPacket encode() {
 		OutPacket buffer = new OutPacket(1202);
 
-		buffer.writeInt(worldId);
 		buffer.writeByte(success ? 0 : 1);
 
 		return buffer;

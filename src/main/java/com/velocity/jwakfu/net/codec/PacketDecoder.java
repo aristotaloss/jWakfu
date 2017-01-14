@@ -53,6 +53,7 @@ public class PacketDecoder extends MessageToMessageDecoder<ByteBuf> {
 		INCOMING_PACKET_MAP.put(2051, new Packet2051DeleteCharacter());
 		INCOMING_PACKET_MAP.put(2053, new Packet2053CreateCharacter());
 		INCOMING_PACKET_MAP.put(2055, new Packet2055LeaveCharacterScreen());
+		INCOMING_PACKET_MAP.put(2079, new Packet2079RequestWebSessionToken());
 	}
 	
 	static {

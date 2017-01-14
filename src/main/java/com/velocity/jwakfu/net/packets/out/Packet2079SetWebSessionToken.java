@@ -1,0 +1,17 @@
+package com.velocity.jwakfu.net.packets.out;
+
+import com.velocity.jwakfu.io.OutPacket;
+import com.velocity.jwakfu.net.packets.OutgoingPacket;
+
+/**
+ * Created by Bart on 1/14/2017.
+ */
+public class Packet2079SetWebSessionToken implements OutgoingPacket {
+
+	@Override
+	public OutPacket encode() {
+		OutPacket out = new OutPacket(2079);
+		out.writeLargeString("2fa45f6d845d3d44b997edadf7df3e637761b843718a83610d4a4191efa6cb");
+		return out;
+	}
+}

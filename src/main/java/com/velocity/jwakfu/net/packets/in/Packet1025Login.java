@@ -45,7 +45,7 @@ public class Packet1025Login implements IncomingPacket {
 		} else {
 			Player player = Player.load(username);
 			if (player.getPassword().equals(password)) {
-				session.write(new Packet1027LoginResponse(player.getName(), 33965798L, 0L, false)).write(new Packet1200ListWorlds());
+				session.write(new Packet1027LoginResponse(/*player.getName(), 33965798L, 0L, false*/LoginResponseCode.CORRECT_LOGIN)).write(new Packet1200ListWorlds());
 				session.setPlayer(player);
 			} else {
 				session.write(new Packet1027LoginResponse(LoginResponseCode.INVALID_LOGIN));

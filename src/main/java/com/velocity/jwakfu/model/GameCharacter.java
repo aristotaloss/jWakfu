@@ -82,7 +82,7 @@ public class GameCharacter {
 		buffer.writeByte(appearance.getHairColorFactor()); //hairColorFactor
 		buffer.writeByte(appearance.getClothIndex()); //clothIndex
 		buffer.writeByte(appearance.getFaceIndex()); //faceIndex
-		buffer.writeShort(appearance.getTitle()); //title
+		buffer.writeShort(/*appearance.getTitle()*/5); //title
 	}
 	
 	public void writeEquipment(OutPacket buffer) {
@@ -94,9 +94,6 @@ public class GameCharacter {
 	}
 	
 	public void writeCreationData(OutPacket buffer) {
-		buffer.writeByte(0); //no creation data
-		buffer.writeByte(0); //no creation data
-		buffer.writeShort(0); //no creation data
 		buffer.writeByte(0); //no creation data
 	}
 	
